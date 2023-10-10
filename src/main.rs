@@ -1,8 +1,10 @@
-// use std::env;
+use std::env;
 
-mod y15;
-use y15::d1;
+use aoc_rs::run;
 
 fn main() {
-    d1::run("inputs/2015/d1.txt");
+    let args: Vec<String> = env::args().collect();
+    let (year, day) = (&args[1], &args[2]);
+
+    run(&year, &day);
 }
