@@ -1,3 +1,8 @@
+// use std::env;
+
+mod y15;
+use y15::d1;
+
 fn main() {
-    println!("Hello, world!");
+    d1::run("inputs/2015/d1.txt");
 }
