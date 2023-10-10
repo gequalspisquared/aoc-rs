@@ -1,10 +1,9 @@
-use std::fs;
 use std::collections::HashMap;
+use std::fs;
 use std::hash::Hash;
 
 pub fn run(file_path: &str) {
-    let directions = fs::read_to_string(file_path)
-        .expect("Could not read input file");
+    let directions = fs::read_to_string(file_path).expect("Could not read input file");
 
     p1(&directions);
     p2(&directions);
@@ -54,16 +53,20 @@ fn p2(directions: &str) {
 
     for (i, direction) in directions.chars().enumerate() {
         let count: &mut i32;
-        if i % 2 == 0 { // santa moves
+        if i % 2 == 0 {
+            // santa moves
             santa_current_location.process_direction(direction);
             count = locations_visited.entry(santa_current_location).or_insert(1);
-        } else { // robo santa moves
+        } else {
+            // robo santa moves
             robo_current_location.process_direction(direction);
             count = locations_visited.entry(robo_current_location).or_insert(1);
         }
         *count += 1;
     }
 
-    println!("Santa and Robo Santa visited {} unique houses.", 
-        locations_visited.len());
+    println!(
+        "Santa and Robo Santa visited {} unique houses.",
+        locations_visited.len()
+    );
 }
