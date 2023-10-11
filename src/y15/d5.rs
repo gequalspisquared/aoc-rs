@@ -85,7 +85,7 @@ fn is_string_nice_2(string: &str) -> bool {
     let mut c1: char;
     let mut c2 = 'a';
     let mut c3 = 'a';
-    
+
     for (i, c) in string.chars().enumerate() {
         c1 = c2;
         c2 = c3;

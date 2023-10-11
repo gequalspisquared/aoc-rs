@@ -35,11 +35,13 @@ struct Lights {
 
 impl Lights {
     fn new() -> Lights {
-        Lights { lights: vec![0i32; 1_000 * 1_000] }
+        Lights {
+            lights: vec![0i32; 1_000 * 1_000],
+        }
     }
 
     fn get_index(coordinate_pair: CoordinatePair) -> usize {
-        (coordinate_pair.0*1_000 + coordinate_pair.1) as usize
+        (coordinate_pair.0 * 1_000 + coordinate_pair.1) as usize
     }
 
     fn execute1(&mut self, instruction: &Instruction) {
@@ -56,10 +58,10 @@ impl Lights {
                         } else {
                             self.lights[index] = 0;
                         }
-                    },
+                    }
                 };
             }
-        } 
+        }
     }
 
     fn execute2(&mut self, instruction: &Instruction) {
@@ -71,16 +73,12 @@ impl Lights {
                     Command::TurnOn => self.lights[index] += 1,
                     Command::TurnOff => {
                         let current = self.lights[index];
-                        self.lights[index] = if current == 0 { 
-                            0 
-                        } else { 
-                            current - 1
-                        };
-                    },
+                        self.lights[index] = if current == 0 { 0 } else { current - 1 };
+                    }
                     Command::Toggle => self.lights[index] += 2,
                 };
             }
-        } 
+        }
     }
 
     fn num_lights_on(&self) -> i32 {
