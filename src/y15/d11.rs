@@ -87,7 +87,3 @@ fn increment(current_password: &mut String) {
 
     *current_password = tmp.chars().rev().collect::<String>();
 }
-
-fn increment_util(c: char) -> char {
-    char::from_u32(c as u32 + 1).unwrap_or(c)
-}
