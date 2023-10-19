@@ -6,9 +6,11 @@ mod d5;
 mod d6;
 mod d7;
 mod d8;
+mod d9;
 
 pub fn run(day: &str) {
     let file_path = String::from("inputs/2015/d") + day + ".txt";
+    // let file_path = String::from("inputs/2015/d") + day + "_example.txt";
 
     match day {
         "1" => d1::run(&file_path),
@@ -19,6 +21,7 @@ pub fn run(day: &str) {
         "6" => d6::run(&file_path),
         "7" => d7::run(&file_path),
         "8" => d8::run(&file_path),
+        "9" => d9::run(&file_path),
         _ => panic!("Could not determine day!"),
     };
 }
