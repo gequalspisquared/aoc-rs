@@ -2,7 +2,7 @@ use std::fs;
 
 pub fn run(file_path: &str) {
     let list = fs::read_to_string(file_path).expect("Failed to read input!");
-    
+
     p1(&list);
     p2(&list);
 }
@@ -20,7 +20,7 @@ fn p1(list: &str) {
                 } else {
                     i += 2;
                 }
-                
+
                 num -= 1;
                 continue;
             }
@@ -48,7 +48,7 @@ fn p2(list: &str) {
                     num += 2;
                     i += 2;
                 }
-                
+
                 continue;
             }
 

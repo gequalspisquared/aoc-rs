@@ -1,4 +1,4 @@
-// Disclaimer: This code is just a rust implementation of Dmitry Sebakov's 
+// Disclaimer: This code is just a rust implementation of Dmitry Sebakov's
 // solution at: https://dmatrix.dev/advent-of-code-year-2015-day-7/
 
 use std::fs;
@@ -52,7 +52,7 @@ fn process(instructions_map: &mut InstructionsMap, wire: &str) -> Signal {
     value
 }
 
-fn compute_signal(instructions_map: & mut InstructionsMap, wire: & str) -> Signal {
+fn compute_signal(instructions_map: &mut InstructionsMap, wire: &str) -> Signal {
     let instruction = instructions_map.get(&String::from(wire)).unwrap().clone();
     match instruction[1].as_str() {
         "->" => assign(instructions_map, &instruction[0]),

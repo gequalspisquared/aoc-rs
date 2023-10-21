@@ -1,14 +1,13 @@
-use std::fs;
 use std::cmp;
 use std::collections::HashMap;
+use std::fs;
 
 use itertools::Itertools;
 
 type AdjacencyList = Vec<Vec<i32>>;
 
 pub fn run(file_input: &str) {
-    let happiness_rules = fs::read_to_string(file_input)
-        .expect("Failed to get input!");
+    let happiness_rules = fs::read_to_string(file_input).expect("Failed to get input!");
     let adjacency_list = parse_rules(&happiness_rules);
 
     p1(&adjacency_list);
@@ -84,13 +83,17 @@ fn parse_rules(rules: &str) -> AdjacencyList {
         let happiness = words[3].parse::<i32>().expect("Not a number!");
         let mut last = words[10].to_string(); // remove period
         last.pop();
-        
+
         let idx = name_to_index.len();
         let first_idx = *name_to_index.entry(first.clone()).or_insert(idx);
         let idx = name_to_index.len();
         let last_idx = *name_to_index.entry(last.clone()).or_insert(idx);
 
-        let max_idx = if first_idx < last_idx { last_idx } else { first_idx };
+        let max_idx = if first_idx < last_idx {
+            last_idx
+        } else {
+            first_idx
+        };
         if adjacency_list.len() <= max_idx {
             adjacency_list.resize(max_idx + 1, Vec::new());
         }

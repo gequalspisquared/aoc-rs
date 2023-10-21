@@ -33,7 +33,7 @@ fn take_turn(current_sequence: &Vec<char>) -> Vec<char> {
             curr_len = 1;
             curr_char = *c;
             continue;
-        } 
+        }
 
         curr_len += 1;
     }

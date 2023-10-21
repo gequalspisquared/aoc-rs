@@ -80,7 +80,7 @@ fn increment(current_password: &mut String) {
                 return 'a';
             } else {
                 continue_incrementing = false;
-                return char::from_u32(c as u32 + 1).unwrap()
+                return char::from_u32(c as u32 + 1).unwrap();
             }
         })
         .collect::<String>();

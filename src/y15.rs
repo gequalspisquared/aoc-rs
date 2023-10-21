@@ -1,4 +1,10 @@
 mod d1;
+mod d10;
+mod d11;
+mod d12;
+mod d13;
+mod d14;
+mod d15;
 mod d2;
 mod d3;
 mod d4;
@@ -7,11 +13,6 @@ mod d6;
 mod d7;
 mod d8;
 mod d9;
-mod d10;
-mod d11;
-mod d12;
-mod d13;
-mod d14;
 
 pub fn run(day: &str) {
     let file_path = String::from("inputs/2015/d") + day + ".txt";
@@ -32,6 +33,7 @@ pub fn run(day: &str) {
         "12" => d12::run(&file_path),
         "13" => d13::run(&file_path),
         "14" => d14::run(&file_path),
+        "15" => d15::run(&file_path),
         _ => panic!("Could not determine day!"),
     };
 }

@@ -1,10 +1,9 @@
-use std::fs;
 use std::cmp;
+use std::fs;
 
 pub fn run(file_path: &str) {
-    let reindeer_stats = fs::read_to_string(file_path)
-        .expect("Failed to read input!");
-    
+    let reindeer_stats = fs::read_to_string(file_path).expect("Failed to read input!");
+
     let mut reindeer = Vec::new();
     for stats in reindeer_stats.lines() {
         reindeer.push(Reindeer::new(stats));
@@ -72,12 +71,16 @@ impl Reindeer {
         let flight_time = words[6].parse::<u32>().unwrap();
         let rest_time = words[13].parse::<u32>().unwrap();
 
-        Reindeer { speed, flight_time, rest_time }
+        Reindeer {
+            speed,
+            flight_time,
+            rest_time,
+        }
     }
 
     fn calculate_distance_traveled(&self, curr_time: u32) -> u32 {
         let period = self.flight_time + self.rest_time;
-     
+
         let mut dist = 0;
 
         let num_periods = curr_time / period;

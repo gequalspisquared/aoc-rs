@@ -1,6 +1,6 @@
-use std::fs;
 use std::cmp;
 use std::collections::HashMap;
+use std::fs;
 
 use itertools::Itertools;
 
@@ -40,8 +40,8 @@ fn p2(adjacency_list: &AdjacencyList) {
 
 fn traverse_route(adjacency_list: &AdjacencyList, route: &Vec<&usize>) -> usize {
     let mut dist = 0;
-    for i in 0..adjacency_list.len()-1 {
-        dist += adjacency_list[*route[i]][*route[i+1]];
+    for i in 0..adjacency_list.len() - 1 {
+        dist += adjacency_list[*route[i]][*route[i + 1]];
     }
 
     dist
@@ -79,11 +79,11 @@ fn parse_distances(distances: &str) -> AdjacencyList {
         if adjacency_list[to_idx].len() <= max_idx {
             adjacency_list[to_idx].resize(max_idx + 1, 0);
         }
-        
+
         // insert
         adjacency_list[from_idx][to_idx] = dist;
         adjacency_list[to_idx][from_idx] = dist;
     }
-    
+
     adjacency_list
 }
