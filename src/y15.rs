@@ -5,6 +5,8 @@ mod d12;
 mod d13;
 mod d14;
 mod d15;
+mod d16;
+mod d17;
 mod d2;
 mod d3;
 mod d4;
@@ -34,6 +36,8 @@ pub fn run(day: &str) {
         "13" => d13::run(&file_path),
         "14" => d14::run(&file_path),
         "15" => d15::run(&file_path),
+        "16" => d16::run(&file_path),
+        "17" => d17::run(&file_path),
         _ => panic!("Could not determine day!"),
     };
 }
