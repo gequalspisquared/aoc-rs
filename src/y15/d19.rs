@@ -50,9 +50,10 @@ fn p2(rev_replacements: &ReverseReplacementMap, molecule: &str) {
 
     while non_e > 0 { 
         let chars: Vec<char> = original_molecule.chars().collect();
-        let mut i = non_e as i32;
         let mut smallest_idx = chars.len();
         let mut key = "";
+
+        let mut i = non_e as i32;
         while i >= 0 {
             let substr = &original_molecule[i as usize..=non_e];
             if rev_replacements.contains_key(substr) {
