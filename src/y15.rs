@@ -8,6 +8,7 @@ mod d15;
 mod d16;
 mod d17;
 mod d18;
+mod d19;
 mod d2;
 mod d3;
 mod d4;
@@ -40,6 +41,7 @@ pub fn run(day: &str) {
         "16" => d16::run(&file_path),
         "17" => d17::run(&file_path),
         "18" => d18::run(&file_path),
+        "19" => d19::run(&file_path),
         _ => panic!("Could not determine day!"),
     };
 }
