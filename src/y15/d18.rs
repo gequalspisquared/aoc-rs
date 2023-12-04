@@ -1,8 +1,7 @@
 use std::fs;
 
 pub fn run(file_path: &str) {
-    let initial_configuration = fs::read_to_string(file_path)
-        .expect("Failed to get input!");
+    let initial_configuration = fs::read_to_string(file_path).expect("Failed to get input!");
 
     let lights = Lights::new(&initial_configuration);
     p1(&lights, 100);
@@ -15,7 +14,10 @@ fn p1(lights: &Lights, num_steps: usize) {
     for _ in 0..num_steps {
         lights.step();
     }
-    println!("After {num_steps} steps, there are {} lights on", lights.count());
+    println!(
+        "After {num_steps} steps, there are {} lights on",
+        lights.count()
+    );
 }
 
 fn p2(lights: &Lights, num_steps: usize) {
@@ -24,7 +26,10 @@ fn p2(lights: &Lights, num_steps: usize) {
     for _ in 0..num_steps {
         lights.step_corners_on();
     }
-    println!("After {num_steps} corner on steps, there are {} lights on", lights.count());
+    println!(
+        "After {num_steps} corner on steps, there are {} lights on",
+        lights.count()
+    );
 }
 
 #[derive(Clone)]
@@ -41,7 +46,7 @@ impl Lights {
         for (y, row) in initial_configuration.lines().rev().enumerate() {
             for (x, col) in row.chars().enumerate() {
                 if col == '#' {
-                    lights[x + (size - y - 1)*size] = 1;
+                    lights[x + (size - y - 1) * size] = 1;
                 }
             }
         }
@@ -51,7 +56,7 @@ impl Lights {
 
     fn step(&mut self) {
         let lights = self.clone();
-        
+
         for (idx, light) in lights.lights.iter().enumerate() {
             let (x, y) = (idx / self.size, idx % self.size);
             let num_neighbors = lights.get_neighbor_count(x as i32, y as i32);
@@ -66,7 +71,7 @@ impl Lights {
     fn step_corners_on(&mut self) {
         self.set_corners_on();
         let lights = self.clone();
-        
+
         for (idx, light) in lights.lights.iter().enumerate() {
             let (x, y) = (idx / self.size, idx % self.size);
             let num_neighbors = lights.get_neighbor_count(x as i32, y as i32);
@@ -101,8 +106,8 @@ impl Lights {
         let mut count = 0;
 
         for (dx, dy) in dirs {
-            if x + dx >= self.size as i32 || x + dx < 0 ||
-               y + dy >= self.size as i32 || y + dy < 0 {
+            if x + dx >= self.size as i32 || x + dx < 0 || y + dy >= self.size as i32 || y + dy < 0
+            {
                 continue;
             }
 
@@ -116,7 +121,7 @@ impl Lights {
     fn print(&self) {
         for x in 0..self.size {
             for y in 0..self.size {
-                print!("{}", self.lights[x*6 + y]);
+                print!("{}", self.lights[x * 6 + y]);
             }
             println!("");
         }

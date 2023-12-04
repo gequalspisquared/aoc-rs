@@ -19,7 +19,9 @@ pub fn run(file_path: &str) {
     for y in 0..size {
         for x in 0..size {
             if mat[x][y].is_numeric() {
-                if let Some(_) = check_surrounding(&mat, x, y) { checked_mat[x][y] = mat[x][y] }
+                if let Some(_) = check_surrounding(&mat, x, y) {
+                    checked_mat[x][y] = mat[x][y]
+                }
             }
         }
     }
@@ -58,7 +60,7 @@ pub fn run(file_path: &str) {
 
     let mut transpose: Mat = vec![vec![' '; size]; size];
     for y in 0..size {
-        for x in 0 ..size {
+        for x in 0..size {
             transpose[x][y] = filled[y][x];
         }
     }
@@ -78,11 +80,11 @@ pub fn run(file_path: &str) {
     for y in 0..size {
         for x in 0..size {
             if mat[x][y].is_numeric() {
-                if let Some(c) = check_surrounding(&mat, x, y) { 
+                if let Some(c) = check_surrounding(&mat, x, y) {
                     if c == '*' {
-                        checked_mat[x][y] = mat[x][y] 
+                        checked_mat[x][y] = mat[x][y]
                     }
-                } 
+                }
             } else if mat[x][y] == '*' && get_num_touching(&mat, x, y) == 2 {
                 checked_mat[x][y] = '*';
             }
@@ -92,9 +94,9 @@ pub fn run(file_path: &str) {
     for y in 0..size {
         for x in 0..size {
             if checked_mat[x][y].is_numeric() {
-                if let Some(c) = check_surrounding(&checked_mat, x, y) { 
+                if let Some(c) = check_surrounding(&checked_mat, x, y) {
                     if c == '*' {
-                        checked_mat[x][y] = mat[x][y] 
+                        checked_mat[x][y] = mat[x][y]
                     }
                 } else {
                     checked_mat[x][y] = ' ';
@@ -179,21 +181,19 @@ fn check(mat: &Mat, x: usize, y: usize) -> Option<char> {
     if c != ' ' && !c.is_numeric() {
         return Some(c);
     }
-    
+
     None
 }
 
 // x and y should be location of the gear ('*') symbol
 fn get_num_touching(mat: &Mat, x: usize, y: usize) -> usize {
     let mut num_touching = 0;
-    
+
     for dy in -1..=1 {
-        
         let mut l = false;
         let mut m = false;
         let mut r = false;
         for dx in -1..=1 {
-
             if y == 0 && x == 0 {
                 continue;
             }
@@ -237,12 +237,10 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
     let mut product = 1;
     let mut num: Vec<char> = Vec::new();
     for dy in -1..=1 {
-        
         let mut l = false;
         let mut m = false;
         let mut r = false;
         for dx in -1..=1 {
-
             if y == 0 && x == 0 {
                 continue;
             }
@@ -253,18 +251,19 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
             if x1 >= 0 && x1 < transpose.len() as i32 && y1 >= 0 && y1 < transpose.len() as i32 {
                 if dy == 0 {
                     if transpose[x1 as usize][y1 as usize].is_numeric() {
-
                         let mut x2 = x1;
                         while x2 > 0 && transpose[(x2 - 1) as usize][y1 as usize].is_numeric() {
                             x2 -= 1;
                         }
 
                         num.push(transpose[x2 as usize][y1 as usize]);
-                        while x2 < transpose.len() as i32 - 1 && transpose[(x2 + 1) as usize][y1 as usize].is_numeric() {
+                        while x2 < transpose.len() as i32 - 1
+                            && transpose[(x2 + 1) as usize][y1 as usize].is_numeric()
+                        {
                             x2 += 1;
                             num.push(transpose[x2 as usize][y1 as usize]);
                         }
-                        
+
                         let num1: String = num.iter().collect();
                         product *= num1.parse::<usize>().unwrap();
                         num.clear();
@@ -290,13 +289,14 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
             if m {
                 let mut x2 = x as i32;
 
-
                 while x2 > 0 && transpose[(x2 - 1) as usize][y1 as usize].is_numeric() {
                     x2 -= 1;
                 }
 
                 num.push(transpose[x2 as usize][y1 as usize]);
-                while x2 < transpose.len() as i32 - 1 && transpose[(x2 + 1) as usize][y1 as usize].is_numeric() {
+                while x2 < transpose.len() as i32 - 1
+                    && transpose[(x2 + 1) as usize][y1 as usize].is_numeric()
+                {
                     x2 += 1;
                     num.push(transpose[x2 as usize][y1 as usize]);
                 }
@@ -304,7 +304,6 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
                 let num1: String = num.iter().collect();
                 product *= num1.parse::<usize>().unwrap();
                 num.clear();
-
             } else {
                 if l {
                     let mut x2 = x as i32 - 1;
@@ -313,7 +312,9 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
                     }
 
                     num.push(transpose[x2 as usize][y1 as usize]);
-                    while x2 < transpose.len() as i32 - 1 && transpose[(x2 + 1) as usize][y1 as usize].is_numeric() {
+                    while x2 < transpose.len() as i32 - 1
+                        && transpose[(x2 + 1) as usize][y1 as usize].is_numeric()
+                    {
                         x2 += 1;
                         num.push(transpose[x2 as usize][y1 as usize]);
                     }
@@ -329,7 +330,9 @@ fn get_gear_ratio(transpose: &Mat, x: usize, y: usize) -> usize {
                     }
 
                     num.push(transpose[x2 as usize][y1 as usize]);
-                    while x2 < transpose.len() as i32 - 1 && transpose[(x2 + 1) as usize][y1 as usize].is_numeric() {
+                    while x2 < transpose.len() as i32 - 1
+                        && transpose[(x2 + 1) as usize][y1 as usize].is_numeric()
+                    {
                         x2 += 1;
                         num.push(transpose[x2 as usize][y1 as usize]);
                     }

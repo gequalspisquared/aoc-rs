@@ -1,32 +1,173 @@
 pub fn run() {
-    let boss = Fighter { health: 104, damage: 8, armor: 1 };
+    let boss = Fighter {
+        health: 104,
+        damage: 8,
+        armor: 1,
+    };
 
     let mut weapons: Weapons = Vec::new();
-    weapons.push(Item { name: String::from("Dagger"), stats: ItemStats { cost: 8, damage: 4, armor: 0 }});
-    weapons.push(Item { name: String::from("ShortSword"), stats: ItemStats { cost: 10, damage: 5, armor: 0 }});
-    weapons.push(Item { name: String::from("Warhammer"), stats: ItemStats { cost: 25, damage: 6, armor: 0 }});
-    weapons.push(Item { name: String::from("Longsword"), stats: ItemStats { cost: 40, damage: 7, armor: 0 }});
-    weapons.push(Item { name: String::from("Greataxe"), stats: ItemStats { cost: 74, damage: 8, armor: 0 }});
+    weapons.push(Item {
+        name: String::from("Dagger"),
+        stats: ItemStats {
+            cost: 8,
+            damage: 4,
+            armor: 0,
+        },
+    });
+    weapons.push(Item {
+        name: String::from("ShortSword"),
+        stats: ItemStats {
+            cost: 10,
+            damage: 5,
+            armor: 0,
+        },
+    });
+    weapons.push(Item {
+        name: String::from("Warhammer"),
+        stats: ItemStats {
+            cost: 25,
+            damage: 6,
+            armor: 0,
+        },
+    });
+    weapons.push(Item {
+        name: String::from("Longsword"),
+        stats: ItemStats {
+            cost: 40,
+            damage: 7,
+            armor: 0,
+        },
+    });
+    weapons.push(Item {
+        name: String::from("Greataxe"),
+        stats: ItemStats {
+            cost: 74,
+            damage: 8,
+            armor: 0,
+        },
+    });
 
     let mut armor: Armor = Vec::new();
-    armor.push(Item { name: String::from("None"), stats: ItemStats { cost: 0, damage: 0, armor: 0 }});
-    armor.push(Item { name: String::from("Leather"), stats: ItemStats { cost: 13, damage: 0, armor: 1 }});
-    armor.push(Item { name: String::from("Chainmail"), stats: ItemStats { cost: 31, damage: 0, armor: 2 }});
-    armor.push(Item { name: String::from("Splintmail"), stats: ItemStats { cost: 53, damage: 0, armor: 3 }});
-    armor.push(Item { name: String::from("Bandedmail"), stats: ItemStats { cost: 75, damage: 0, armor: 4 }});
-    armor.push(Item { name: String::from("Platemail"), stats: ItemStats { cost: 102, damage: 0, armor: 5 }});
+    armor.push(Item {
+        name: String::from("None"),
+        stats: ItemStats {
+            cost: 0,
+            damage: 0,
+            armor: 0,
+        },
+    });
+    armor.push(Item {
+        name: String::from("Leather"),
+        stats: ItemStats {
+            cost: 13,
+            damage: 0,
+            armor: 1,
+        },
+    });
+    armor.push(Item {
+        name: String::from("Chainmail"),
+        stats: ItemStats {
+            cost: 31,
+            damage: 0,
+            armor: 2,
+        },
+    });
+    armor.push(Item {
+        name: String::from("Splintmail"),
+        stats: ItemStats {
+            cost: 53,
+            damage: 0,
+            armor: 3,
+        },
+    });
+    armor.push(Item {
+        name: String::from("Bandedmail"),
+        stats: ItemStats {
+            cost: 75,
+            damage: 0,
+            armor: 4,
+        },
+    });
+    armor.push(Item {
+        name: String::from("Platemail"),
+        stats: ItemStats {
+            cost: 102,
+            damage: 0,
+            armor: 5,
+        },
+    });
 
     let mut rings: Rings = Vec::new();
-    rings.push(Item { name: String::from("None 1"), stats: ItemStats { cost: 0, damage: 0, armor: 0 }});
-    rings.push(Item { name: String::from("None 2"), stats: ItemStats { cost: 0, damage: 0, armor: 0 }});
-    rings.push(Item { name: String::from("Damage +1"), stats: ItemStats { cost: 25, damage: 1, armor: 0 }});
-    rings.push(Item { name: String::from("Damage +2"), stats: ItemStats { cost: 50, damage: 2, armor: 0 }});
-    rings.push(Item { name: String::from("Damage +3"), stats: ItemStats { cost: 100, damage: 3, armor: 0 }});
-    rings.push(Item { name: String::from("Defense +1"), stats: ItemStats { cost: 20, damage: 0, armor: 1 }});
-    rings.push(Item { name: String::from("Defense +2"), stats: ItemStats { cost: 40, damage: 0, armor: 2 }});
-    rings.push(Item { name: String::from("Defense +3"), stats: ItemStats { cost: 80, damage: 0, armor: 3 }});
+    rings.push(Item {
+        name: String::from("None 1"),
+        stats: ItemStats {
+            cost: 0,
+            damage: 0,
+            armor: 0,
+        },
+    });
+    rings.push(Item {
+        name: String::from("None 2"),
+        stats: ItemStats {
+            cost: 0,
+            damage: 0,
+            armor: 0,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Damage +1"),
+        stats: ItemStats {
+            cost: 25,
+            damage: 1,
+            armor: 0,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Damage +2"),
+        stats: ItemStats {
+            cost: 50,
+            damage: 2,
+            armor: 0,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Damage +3"),
+        stats: ItemStats {
+            cost: 100,
+            damage: 3,
+            armor: 0,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Defense +1"),
+        stats: ItemStats {
+            cost: 20,
+            damage: 0,
+            armor: 1,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Defense +2"),
+        stats: ItemStats {
+            cost: 40,
+            damage: 0,
+            armor: 2,
+        },
+    });
+    rings.push(Item {
+        name: String::from("Defense +3"),
+        stats: ItemStats {
+            cost: 80,
+            damage: 0,
+            armor: 3,
+        },
+    });
 
-    let shop = Shop { weapons, armor, rings };
+    let shop = Shop {
+        weapons,
+        armor,
+        rings,
+    };
 
     p1(&boss, &shop);
     p2(&boss, &shop);
@@ -44,12 +185,25 @@ fn p1(boss: &Fighter, shop: &Shop) {
                         continue;
                     }
 
-                    let p_damage = weapon.stats.damage + armor.stats.damage + ring1.stats.damage + ring2.stats.damage;
-                    let p_armor = weapon.stats.armor + armor.stats.armor + ring1.stats.armor + ring2.stats.armor;
-                    let player = Fighter { health, damage: p_damage, armor: p_armor };
+                    let p_damage = weapon.stats.damage
+                        + armor.stats.damage
+                        + ring1.stats.damage
+                        + ring2.stats.damage;
+                    let p_armor = weapon.stats.armor
+                        + armor.stats.armor
+                        + ring1.stats.armor
+                        + ring2.stats.armor;
+                    let player = Fighter {
+                        health,
+                        damage: p_damage,
+                        armor: p_armor,
+                    };
 
                     if will_player_win(boss, &player) {
-                        let cost = weapon.stats.cost + armor.stats.cost + ring1.stats.cost + ring2.stats.cost;
+                        let cost = weapon.stats.cost
+                            + armor.stats.cost
+                            + ring1.stats.cost
+                            + ring2.stats.cost;
                         if cost < lowest_cost {
                             lowest_cost = cost;
                         }
@@ -74,12 +228,25 @@ fn p2(boss: &Fighter, shop: &Shop) {
                         continue;
                     }
 
-                    let p_damage = weapon.stats.damage + armor.stats.damage + ring1.stats.damage + ring2.stats.damage;
-                    let p_armor = weapon.stats.armor + armor.stats.armor + ring1.stats.armor + ring2.stats.armor;
-                    let player = Fighter { health, damage: p_damage, armor: p_armor };
+                    let p_damage = weapon.stats.damage
+                        + armor.stats.damage
+                        + ring1.stats.damage
+                        + ring2.stats.damage;
+                    let p_armor = weapon.stats.armor
+                        + armor.stats.armor
+                        + ring1.stats.armor
+                        + ring2.stats.armor;
+                    let player = Fighter {
+                        health,
+                        damage: p_damage,
+                        armor: p_armor,
+                    };
 
                     if !will_player_win(boss, &player) {
-                        let cost = weapon.stats.cost + armor.stats.cost + ring1.stats.cost + ring2.stats.cost;
+                        let cost = weapon.stats.cost
+                            + armor.stats.cost
+                            + ring1.stats.cost
+                            + ring2.stats.cost;
                         if cost > highest_cost {
                             highest_cost = cost;
                         }

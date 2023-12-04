@@ -1,5 +1,5 @@
-use std::fs;
 use std::cmp::max;
+use std::fs;
 
 pub fn run(file_path: &str) {
     let games = fs::read_to_string(file_path).expect("Failed to get input!");

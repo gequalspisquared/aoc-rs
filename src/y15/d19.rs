@@ -1,12 +1,11 @@
-use std::fs;
 use std::collections::{HashMap, HashSet};
+use std::fs;
 
 type ReplacementMap<'a> = HashMap<&'a str, Vec<&'a str>>;
 type ReverseReplacementMap<'a> = HashMap<&'a str, &'a str>;
 
 pub fn run(file_path: &str) {
-    let replacements_and_molecule = fs::read_to_string(file_path)
-        .expect("Failed to get input!");
+    let replacements_and_molecule = fs::read_to_string(file_path).expect("Failed to get input!");
 
     let (replacements, rev_replacements, molecule) = parse_input(&replacements_and_molecule);
 
@@ -23,16 +22,16 @@ fn p1(replacements: &ReplacementMap, molecule: &str) {
     while i < chars.len() {
         let substr;
         if i < chars.len() - 1 && chars[i + 1].is_lowercase() {
-            substr = chars[i].to_string() + &chars[i+1].to_string();
+            substr = chars[i].to_string() + &chars[i + 1].to_string();
         } else {
             substr = chars[i].to_string();
         }
-        
+
         if replacements.contains_key(substr.as_str()) {
             for replacement in replacements[substr.as_str()].iter() {
                 let mut new_string = original_molecule.clone();
 
-                new_string.replace_range(i..i+substr.len(), replacement);
+                new_string.replace_range(i..i + substr.len(), replacement);
                 seen.insert(new_string);
             }
         }
@@ -48,7 +47,7 @@ fn p2(rev_replacements: &ReverseReplacementMap, molecule: &str) {
     let mut non_e = first_non_e(molecule);
     let mut steps = 0;
 
-    while non_e > 0 { 
+    while non_e > 0 {
         let chars: Vec<char> = original_molecule.chars().collect();
         let mut smallest_idx = chars.len();
         let mut key = "";
@@ -63,7 +62,7 @@ fn p2(rev_replacements: &ReverseReplacementMap, molecule: &str) {
 
             i -= 1;
         }
-        
+
         if key == "" {
             non_e -= 1;
             continue;
@@ -88,7 +87,7 @@ fn first_non_e(molecule: &str) -> usize {
             return molecule.len() - i - 1;
         }
     }
-    
+
     0
 }
 

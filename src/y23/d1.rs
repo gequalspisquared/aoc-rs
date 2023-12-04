@@ -29,15 +29,7 @@ fn parse_line_p1(line: &str) -> i32 {
 
 fn parse_line_p2(line: &str) -> i32 {
     const DIGITS: [&'static str; 9] = [
-        "one",
-        "two",
-        "three",
-        "four",
-        "five",
-        "six",
-        "seven",
-        "eight",
-        "nine"
+        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
 
     let mut c1 = '0';
