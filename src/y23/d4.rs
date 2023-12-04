@@ -3,20 +3,18 @@ use std::fs;
 pub fn run(file_path: &str) {
     let scratchcard_info = fs::read_to_string(file_path).expect("Failed to get input!");
     let mut scratchcards = Vec::new();
-    for line in scratchcard_info.lines() {
-        scratchcards.push(Scratchcard::new(line));
-    }
+    scratchcard_info
+        .lines()
+        .for_each(|line| scratchcards.push(Scratchcard::new(line)));
 
     p1(&scratchcards);
     p2(&scratchcards);
 }
 
 fn p1(scratchcards: &Vec<Scratchcard>) {
-    let mut sum = 0;
-    for scratchcard in scratchcards {
-        let score = scratchcard.compute_score();
-        sum += score;
-    }
+    let sum = scratchcards
+        .iter()
+        .fold(0, |acc, s| acc + s.compute_score());
     println!("Sum: {sum}");
 }
 
@@ -39,6 +37,14 @@ fn p2(scratchcards: &Vec<Scratchcard>) {
     println!("Total scratchcards: {num_scratchcards}");
 }
 
+fn parse_numbers(numbers: &str) -> Vec<u32> {
+    let numbers: Vec<&str> = numbers.split_whitespace().into_iter().collect();
+    numbers
+        .iter()
+        .map(|s| s.parse::<u32>().expect("Failed to parse number"))
+        .collect()
+}
+
 struct Scratchcard {
     winning_numbers: Vec<u32>,
     owned_numbers: Vec<u32>,
@@ -49,16 +55,8 @@ impl Scratchcard {
         let (_, right) = line.split_once(':').unwrap();
 
         let (winning_numbers, owned_numbers) = right.split_once('|').unwrap();
-        let winning_numbers: Vec<&str> = winning_numbers.split_whitespace().into_iter().collect();
-        let winning_numbers: Vec<u32> = winning_numbers
-            .iter()
-            .map(|s| s.parse::<u32>().expect("Failed to parse winning number"))
-            .collect();
-        let owned_numbers: Vec<&str> = owned_numbers.split_whitespace().into_iter().collect();
-        let owned_numbers: Vec<u32> = owned_numbers
-            .iter()
-            .map(|s| s.parse::<u32>().expect("Failed to parse owned number"))
-            .collect();
+        let winning_numbers = parse_numbers(winning_numbers);
+        let owned_numbers = parse_numbers(owned_numbers);
 
         Scratchcard {
             winning_numbers,
@@ -67,16 +65,15 @@ impl Scratchcard {
     }
 
     fn compute_score(&self) -> u32 {
-        let mut score = 0;
-        for owned_number in &self.owned_numbers {
-            if self.winning_numbers.contains(&owned_number) {
-                match score {
-                    0 => score += 1,
-                    _ => score *= 2,
-                };
+        self.owned_numbers.iter().fold(0, |acc, n| {
+            if self.winning_numbers.contains(n) {
+                match acc {
+                    0 => 1,
+                    _ => acc * 2,
+                }
+            } else {
+                acc
             }
-        }
-
-        score
+        })
     }
 }
