@@ -2,16 +2,18 @@ extern crate nom;
 use nom::{
     bytes::complete::tag,
     character::complete::{digit1, multispace1},
-    sequence::preceded,
     combinator::map_res,
     multi::separated_list0,
+    sequence::preceded,
     IResult,
 };
 use std::fs;
 
 pub fn run(file_path: &str) {
     let almanac_info = fs::read_to_string(file_path).expect("Failed to get input!");
-    let seeds = preceded(tag("seeds: "), parse_u64_list)(&almanac_info).unwrap().1;
+    let seeds = preceded(tag("seeds: "), parse_u64_list)(&almanac_info)
+        .unwrap()
+        .1;
     let almanac = Almanac::new(&almanac_info);
 
     p1(&almanac, &seeds);
@@ -30,10 +32,9 @@ fn p2(almanac: &Almanac, ranges: &Vec<u64>) {
     while i < ranges.len() {
         let start = ranges[i];
         let range = ranges[i + 1];
-        for seed in start..start+range {
+        for seed in start..start + range {
             seeds.push(seed);
         }
-
 
         min = std::cmp::min(min, almanac.find_lowest_location(&seeds));
         seeds.clear();
@@ -53,17 +54,17 @@ fn p2(almanac: &Almanac, ranges: &Vec<u64>) {
     println!("Lowest location: {min}");
 }
 
-#[derive(Clone, Debug)]
-struct SeedRange {
-    start: u64,
-    length: u64,
-}
+// #[derive(Clone, Debug)]
+// struct SeedRange {
+//     start: u64,
+//     length: u64,
+// }
 
-impl SeedRange {
-    fn new(start: u64, length: u64) -> SeedRange {
-        SeedRange { start, length }
-    }
-}
+// impl SeedRange {
+//     fn new(start: u64, length: u64) -> SeedRange {
+//         SeedRange { start, length }
+//     }
+// }
 
 #[derive(Clone)]
 struct Range {
@@ -74,7 +75,7 @@ struct Range {
 
 impl Range {
     fn new(destination: u64, source: u64, range: u64) -> Range {
-        Range { 
+        Range {
             destination,
             source,
             range,
@@ -94,55 +95,55 @@ impl Range {
         }
     }
 
-    fn convert_seed_range(&self, seed_range: &SeedRange) -> Vec<SeedRange> {
-        // if seed_range.start + seed_range.length - 1 < self.source || seed_range.start > self.source + self.range - 1 {
-        //     return vec![seed_range];
-        // }
-        
-        let end = seed_range.start + seed_range.length - 1;
-
-        // completely on left or right of self
-        if seed_range.start >= self.source + self.range || end < self.source {
-            return vec![seed_range.clone()];
-        }
-        
-        // left is outside of range
-        if !self.is_in_range(seed_range.start) && self.is_in_range(end) {
-            let l_length = self.source - seed_range.start;
-            let l_seed_range = SeedRange::new(seed_range.start, l_length);
-            let r_length = end - self.source;
-            let r_seed_range = SeedRange::new(self.convert(self.source).unwrap(), r_length);
-            return vec![l_seed_range, r_seed_range];
-        }
-
-        // right is outside of range
-        if self.is_in_range(seed_range.start) && !self.is_in_range(end) {
-            let l_length = self.source + self.range - seed_range.start;
-            let l_seed_range = SeedRange::new(self.convert(seed_range.start).unwrap(), l_length);
-            let r_length = end - self.source + self.range;
-            let r_seed_range = SeedRange::new(self.source + self.range, r_length);
-            return vec![l_seed_range, r_seed_range];
-
-        }
-
-        // completely contained in range
-        if self.is_in_range(seed_range.start) && self.is_in_range(end) {
-            let seed_range = SeedRange::new(self.convert(seed_range.start).unwrap(), seed_range.length);
-            return vec![seed_range] 
-        }
-
-        // larger than self
-        if !self.is_in_range(seed_range.start) && !self.is_in_range(end) {
-            let l_length = self.source - seed_range.start;
-            let l_seed_range = SeedRange::new(seed_range.start, l_length);
-            let m_seed_range = SeedRange::new(self.convert(self.source).unwrap(), self.range);
-            let r_length = end - self.source + self.range;
-            let r_seed_range = SeedRange::new(self.source + self.range, r_length);
-            return vec![l_seed_range, m_seed_range, r_seed_range];
-        }
-
-        vec![]
-    }
+    // fn convert_seed_range(&self, seed_range: &SeedRange) -> Vec<SeedRange> {
+    //     // if seed_range.start + seed_range.length - 1 < self.source || seed_range.start > self.source + self.range - 1 {
+    //     //     return vec![seed_range];
+    //     // }
+    //
+    //     let end = seed_range.start + seed_range.length - 1;
+    //
+    //     // completely on left or right of self
+    //     if seed_range.start >= self.source + self.range || end < self.source {
+    //         return vec![seed_range.clone()];
+    //     }
+    //
+    //     // left is outside of range
+    //     if !self.is_in_range(seed_range.start) && self.is_in_range(end) {
+    //         let l_length = self.source - seed_range.start;
+    //         let l_seed_range = SeedRange::new(seed_range.start, l_length);
+    //         let r_length = end - self.source;
+    //         let r_seed_range = SeedRange::new(self.convert(self.source).unwrap(), r_length);
+    //         return vec![l_seed_range, r_seed_range];
+    //     }
+    //
+    //     // right is outside of range
+    //     if self.is_in_range(seed_range.start) && !self.is_in_range(end) {
+    //         let l_length = self.source + self.range - seed_range.start;
+    //         let l_seed_range = SeedRange::new(self.convert(seed_range.start).unwrap(), l_length);
+    //         let r_length = end - self.source + self.range;
+    //         let r_seed_range = SeedRange::new(self.source + self.range, r_length);
+    //         return vec![l_seed_range, r_seed_range];
+    //
+    //     }
+    //
+    //     // completely contained in range
+    //     if self.is_in_range(seed_range.start) && self.is_in_range(end) {
+    //         let seed_range = SeedRange::new(self.convert(seed_range.start).unwrap(), seed_range.length);
+    //         return vec![seed_range]
+    //     }
+    //
+    //     // larger than self
+    //     if !self.is_in_range(seed_range.start) && !self.is_in_range(end) {
+    //         let l_length = self.source - seed_range.start;
+    //         let l_seed_range = SeedRange::new(seed_range.start, l_length);
+    //         let m_seed_range = SeedRange::new(self.convert(self.source).unwrap(), self.range);
+    //         let r_length = end - self.source + self.range;
+    //         let r_seed_range = SeedRange::new(self.source + self.range, r_length);
+    //         return vec![l_seed_range, m_seed_range, r_seed_range];
+    //     }
+    //
+    //     vec![]
+    // }
 }
 
 struct Map {
@@ -151,7 +152,9 @@ struct Map {
 
 impl Map {
     fn new(ranges: &Vec<Range>) -> Map {
-        Map { ranges: ranges.clone() }
+        Map {
+            ranges: ranges.clone(),
+        }
     }
 
     fn convert(&self, source: u64) -> Option<u64> {
@@ -164,16 +167,16 @@ impl Map {
         None
     }
 
-    fn convert_range(&self, seed_range: &SeedRange) -> Vec<SeedRange> {
-        let mut ranges = Vec::new();
-        for range in self.ranges.iter() {
-            for seed_range in range.convert_seed_range(seed_range) {
-                ranges.push(seed_range);
-            }
-        }
-
-        ranges
-    }
+    // fn convert_range(&self, seed_range: &SeedRange) -> Vec<SeedRange> {
+    //     let mut ranges = Vec::new();
+    //     for range in self.ranges.iter() {
+    //         for seed_range in range.convert_seed_range(seed_range) {
+    //             ranges.push(seed_range);
+    //         }
+    //     }
+    //
+    //     ranges
+    // }
 }
 
 struct Almanac {
@@ -199,7 +202,7 @@ impl Almanac {
                     current_map.clear();
                 }
                 continue;
-            } 
+            }
             let nums = parse_u64_list(line).unwrap().1;
             current_map.push(Range::new(nums[0], nums[1], nums[2]));
         }
@@ -224,26 +227,26 @@ impl Almanac {
         min
     }
 
-    fn find_lowest_location_range(&self, seed_range: &SeedRange) -> u64 {
-        let mut ranges = vec![seed_range.clone()];
-        for map in self.maps.iter() {
-            let mut current_ranges = vec![];
-            let size = ranges.len();
-            for i in 0..size {
-                let new_ranges = map.convert_range(&ranges[i]);
-                new_ranges.iter().for_each(|r| current_ranges.push(r.clone()));
-                // current_ranges.push(new_ranges);
-            }
-            ranges = current_ranges;
-        }
-
-        // println!("Final SeedRanges: {:#?}", ranges);
-
-        let mut min = u64::MAX;
-        for range in ranges {
-            min = std::cmp::min(min, range.start);
-        }
-
-        min
-    }
+    // fn find_lowest_location_range(&self, seed_range: &SeedRange) -> u64 {
+    //     let mut ranges = vec![seed_range.clone()];
+    //     for map in self.maps.iter() {
+    //         let mut current_ranges = vec![];
+    //         let size = ranges.len();
+    //         for i in 0..size {
+    //             let new_ranges = map.convert_range(&ranges[i]);
+    //             new_ranges.iter().for_each(|r| current_ranges.push(r.clone()));
+    //             // current_ranges.push(new_ranges);
+    //         }
+    //         ranges = current_ranges;
+    //     }
+    //
+    //     // println!("Final SeedRanges: {:#?}", ranges);
+    //
+    //     let mut min = u64::MAX;
+    //     for range in ranges {
+    //         min = std::cmp::min(min, range.start);
+    //     }
+    //
+    //     min
+    // }
 }
